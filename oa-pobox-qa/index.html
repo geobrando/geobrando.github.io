@@ -10,7 +10,7 @@
 
 <meta name="author" content="geobrando" />
 
-<meta name="date" content="2015-04-17" />
+<meta name="date" content="2015-04-19" />
 
 <title>OpenAddresses QA - parcel sources</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">OpenAddresses QA - parcel sources</h1>
 <h4 class="author"><em>geobrando</em></h4>
-<h4 class="date"><em>April 17, 2015</em></h4>
+<h4 class="date"><em>April 19, 2015</em></h4>
 </div>
 
 
@@ -77,7 +77,6 @@ download.file(url=&quot;http://data.openaddresses.io/openaddresses-complete.zip&
               destfile=&quot;openaddresses-complete.zip&quot;)
 sources &lt;- unzip(&quot;openaddresses-complete.zip&quot;)
 
-
 # Read in each address file and grep rows for presence of potential PO BOX address
 pattern &lt;- &quot;P\\.?O\\.?\\s*BOX&quot;
 len &lt;- length(sources)
@@ -86,12 +85,8 @@ results &lt;- list(src=character(len),count=integer(len))
 for (i in 1:len) {
   tempdf &lt;- read.csv(sources[i])
   results[[&quot;src&quot;]][i] &lt;- strsplit(sources[i],&quot;/&quot;)[[1]][2]
-  num &lt;- sum(
-    rowSums(
-      `dim&lt;-`(grepl(pattern, as.matrix(tempdf), ignore.case=T), dim(tempdf))
-    ) &gt; 0, na.rm=T
-  )
-  results[[&quot;count&quot;]][i] &lt;-num
+  address &lt;- paste(tempdf[,&quot;NUMBER&quot;],tempdf[,&quot;STREET&quot;],sep=&quot; &quot;)
+  results[[&quot;count&quot;]][i] &lt;- sum(grepl(pattern, address, ignore.case=T),na.rm=T)
   rm(tempdf)
 }
 
@@ -100,8 +95,11 @@ df &lt;- as.data.frame(results)
 df &lt;- df[df$count &gt; 0,]
 rownames(df) &lt;- NULL
 
-# Create result table
+# Results
+cat(sprintf(&quot;%s PO BOX addresses were detected from %d sources&quot;,
+            format(sum(df$count),big.mark=&quot;,&quot;),nrow(df)))
 pandoc.table(df,style=&quot;rmarkdown&quot;)</code></pre>
+<p>285,137 PO BOX addresses were detected from 70 sources</p>
 <table>
 <thead>
 <tr class="header">
@@ -111,36 +109,44 @@ pandoc.table(df,style=&quot;rmarkdown&quot;)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="center">us-ca-orange.csv</td>
+<td align="center">1072</td>
+</tr>
+<tr class="even">
 <td align="center">us-ca-san_bernardino_county.csv</td>
 <td align="center">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">us-co-larimer.csv</td>
 <td align="center">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">us-fl-clay.csv</td>
-<td align="center">10</td>
+<td align="center">4076</td>
+</tr>
+<tr class="odd">
+<td align="center">us-il-clark.csv</td>
+<td align="center">1505</td>
 </tr>
 <tr class="even">
 <td align="center">us-il-macoupin.csv</td>
-<td align="center">22</td>
+<td align="center">39</td>
 </tr>
 <tr class="odd">
 <td align="center">us-il-menard.csv</td>
-<td align="center">61</td>
+<td align="center">1228</td>
 </tr>
 <tr class="even">
 <td align="center">us-il-putnam.csv</td>
-<td align="center">4</td>
+<td align="center">573</td>
 </tr>
 <tr class="odd">
-<td align="center">us-in-st_joseph.csv</td>
-<td align="center">7</td>
+<td align="center">us-il-williamson.csv</td>
+<td align="center">54</td>
 </tr>
 <tr class="even">
 <td align="center">us-la-acadia.csv</td>
-<td align="center">149</td>
+<td align="center">4864</td>
 </tr>
 <tr class="odd">
 <td align="center">us-mn-fillmore.csv</td>
@@ -148,35 +154,239 @@ pandoc.table(df,style=&quot;rmarkdown&quot;)</code></pre>
 </tr>
 <tr class="even">
 <td align="center">us-mn-roseau.csv</td>
-<td align="center">192</td>
+<td align="center">2124</td>
 </tr>
 <tr class="odd">
+<td align="center">us-mn-wadena.csv</td>
+<td align="center">312</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-big_horn.csv</td>
+<td align="center">8239</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-blaine.csv</td>
+<td align="center">4334</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-broadwater.csv</td>
+<td align="center">2506</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-carbon.csv</td>
+<td align="center">5038</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-carter.csv</td>
+<td align="center">2414</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-cascade.csv</td>
+<td align="center">9604</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-chouteau.csv</td>
+<td align="center">5838</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-custer.csv</td>
+<td align="center">2090</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-daniels.csv</td>
+<td align="center">2872</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-dawson.csv</td>
+<td align="center">1867</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-deer_lodge.csv</td>
+<td align="center">751</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-fallon.csv</td>
+<td align="center">2462</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-fergus.csv</td>
+<td align="center">5589</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-flathead.csv</td>
+<td align="center">23706</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-gallatin.csv</td>
+<td align="center">8755</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-garfield.csv</td>
+<td align="center">2626</td>
+</tr>
+<tr class="even">
 <td align="center">us-mt-glacier.csv</td>
-<td align="center">1</td>
+<td align="center">7828</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-golden_valley.csv</td>
+<td align="center">1121</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-granite.csv</td>
+<td align="center">1877</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-hill.csv</td>
+<td align="center">4610</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-jefferson.csv</td>
+<td align="center">4361</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-judith_basin.csv</td>
+<td align="center">2386</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-lake.csv</td>
+<td align="center">8464</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-lake_county.csv</td>
+<td align="center">8464</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-liberty.csv</td>
+<td align="center">3158</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-lincoln.csv</td>
+<td align="center">6364</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-madison.csv</td>
+<td align="center">6487</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-mccone.csv</td>
+<td align="center">1969</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-meagher.csv</td>
+<td align="center">1733</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-mineral.csv</td>
+<td align="center">3211</td>
 </tr>
 <tr class="even">
 <td align="center">us-mt-missoula.csv</td>
-<td align="center">1</td>
+<td align="center">7174</td>
 </tr>
 <tr class="odd">
-<td align="center">us-mt-pondera.csv</td>
-<td align="center">1</td>
+<td align="center">us-mt-musselshell.csv</td>
+<td align="center">2538</td>
 </tr>
 <tr class="even">
+<td align="center">us-mt-petroleum.csv</td>
+<td align="center">1732</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-phillips.csv</td>
+<td align="center">5179</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-pondera.csv</td>
+<td align="center">2270</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-powder_river.csv</td>
+<td align="center">1817</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-powell.csv</td>
+<td align="center">1829</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-prairie.csv</td>
+<td align="center">1427</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-ravalli.csv</td>
+<td align="center">5485</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-richland.csv</td>
+<td align="center">2131</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-roosevelt.csv</td>
+<td align="center">5690</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-rosebud.csv</td>
+<td align="center">5378</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-sanders.csv</td>
+<td align="center">8275</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-sheridan.csv</td>
+<td align="center">2386</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-silverbow.csv</td>
+<td align="center">2521</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-stillwater.csv</td>
+<td align="center">3714</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-sweet_grass.csv</td>
+<td align="center">2691</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-teton.csv</td>
+<td align="center">3473</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-toole.csv</td>
+<td align="center">4149</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-treasure.csv</td>
+<td align="center">1031</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-valley.csv</td>
+<td align="center">5693</td>
+</tr>
+<tr class="odd">
+<td align="center">us-mt-wheatland.csv</td>
+<td align="center">2611</td>
+</tr>
+<tr class="even">
+<td align="center">us-mt-wibaux.csv</td>
+<td align="center">801</td>
+</tr>
+<tr class="odd">
 <td align="center">us-mt-yellowstone.csv</td>
-<td align="center">1</td>
+<td align="center">9271</td>
+</tr>
+<tr class="even">
+<td align="center">us-nc-cary.csv</td>
+<td align="center">4785</td>
 </tr>
 <tr class="odd">
 <td align="center">us-ne-omaha.csv</td>
-<td align="center">18</td>
+<td align="center">534</td>
 </tr>
 <tr class="even">
-<td align="center">us-sd.csv</td>
-<td align="center">25</td>
-</tr>
-<tr class="odd">
 <td align="center">us-tx-el_paso.csv</td>
-<td align="center">15</td>
+<td align="center">23941</td>
 </tr>
 </tbody>
 </table>
