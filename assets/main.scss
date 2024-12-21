@@ -54,6 +54,8 @@ since it must be aligned with the content */
   height: 1em; // Ensures the icon size is relative to the font size
   color: $text-color;
   vertical-align: middle;
+  display: inline-block;
+  box-sizing: border-box;
 }
 
 /*** logo ***/
