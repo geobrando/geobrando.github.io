@@ -1,0 +1,7 @@
+<section id="about" class="about-section">
+  <h2>About</h2>
+  <div class="about-content">
+    {% capture about_content %}{% include_relative _content/about.md %}{% endcapture %}
+    {{ about_content | markdownify }}
+  </div>
+</section>

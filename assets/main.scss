@@ -1,9 +1,14 @@
 ---
 ---
 
-$text-color: #46433A;
-$anchor-text-color: #CE534D;
-$background-color: #F1EED9;
+// Professional color scheme for data science/tech
+$text-color: #2C3E50;           // Deep blue-grey for text
+$anchor-text-color: #3498DB;    // Bright blue for links
+$accent-color: #27AE60;         // Green accent for highlights
+$background-color: #ECF0F1;     // Light grey background
+$card-background: #FFFFFF;      // White cards
+$border-color: #BDC3C7;         // Light border color
+$nav-background: rgba(255, 255, 255, 0.95);
 
 body {
 	font-family: 'Vollkorn', serif;
@@ -113,6 +118,158 @@ footer {
 	padding: 0 5px;
 }
 
+/*** navigation ***/
+.main-nav {
+	margin: 2em 0;
+	text-align: center;
+}
+
+.nav-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	gap: 2em;
+	flex-wrap: wrap;
+}
+
+.nav-item a {
+	font-weight: 600;
+	font-size: 1.1em;
+	transition: color 0.3s ease;
+}
+
+/*** sections ***/
+section {
+	margin: 3em 0;
+	padding: 2em 0;
+}
+
+section h2 {
+	font-size: 2em;
+	margin-bottom: 1em;
+	color: $text-color;
+	border-bottom: 2px solid $border-color;
+	padding-bottom: 0.3em;
+}
+
+/*** about section ***/
+.about-content p {
+	font-size: 1.1em;
+	line-height: 1.7;
+	margin-bottom: 1em;
+}
+
+/*** highlights section ***/
+.highlights-section {
+	margin: 3em 0;
+}
+
+.highlights-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5em;
+	margin-top: 2em;
+}
+
+.highlight-card {
+	background: $card-background;
+	padding: 1.5em;
+	border-radius: 8px;
+	border-left: 4px solid $accent-color;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.highlight-icon {
+	font-size: 2.5em;
+	margin-bottom: 0.3em;
+}
+
+.highlight-card h3 {
+	margin-top: 0;
+	margin-bottom: 0.8em;
+	font-size: 1.4em;
+	color: $text-color;
+}
+
+.highlight-list {
+	margin: 0;
+	padding-left: 1.5em;
+	list-style: none;
+}
+
+.highlight-list li {
+	margin-bottom: 0.8em;
+	line-height: 1.6;
+	position: relative;
+}
+
+.highlight-list li:before {
+	content: "▸";
+	color: $accent-color;
+	font-weight: bold;
+	position: absolute;
+	left: -1.2em;
+}
+
+.highlight-list strong {
+	color: $anchor-text-color;
+}
+
+/*** tech stack ***/
+.tech-stack {
+	margin-top: 3em;
+	padding: 2em;
+	background: $card-background;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tech-stack h3 {
+	margin-top: 0;
+	margin-bottom: 1em;
+	font-size: 1.4em;
+	text-align: center;
+}
+
+.tech-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.7em;
+	justify-content: center;
+}
+
+.tech-tag {
+	display: inline-block;
+	padding: 0.5em 1em;
+	border-radius: 20px;
+	font-size: 0.9em;
+	font-weight: 600;
+	color: white;
+	transition: transform 0.2s ease;
+}
+
+.tech-tag:hover {
+	transform: scale(1.05);
+}
+
+.tech-tag.python { background: #3776AB; }
+.tech-tag.r { background: #276DC3; }
+.tech-tag.sql { background: #F29111; }
+.tech-tag.ai { background: #E74C3C; }
+.tech-tag.ml { background: #FF6F61; }
+.tech-tag.devops { background: #34495E; }
+.tech-tag.bi { background: #E97627; }
+.tech-tag.geo { background: #27AE60; }
+.tech-tag.dev { background: #9B59B6; }
+.tech-tag.stats { background: #3498DB; }
+
+/*** contact section ***/
+.contact-section h2 {
+	margin-top: 1.5em;
+}
+
 /*** media queries ***/
 /* X-Small devices (phones, 480px and up) */
 @media (min-width: 480px) {
@@ -120,9 +277,13 @@ footer {
 	.wrapper {
 		margin: 5% auto;
 	}
+
+	.highlights-grid {
+		grid-template-columns: 1fr;
+	}
 }
 
-/* All other devices (768px and up) */
+/* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 	/* past 768px the layout is changed and the wrapper has a fixed width of 680px
 	to accomodate both the header column and the content column */
@@ -148,5 +309,20 @@ footer {
 		width: 60%;
 		margin-left: 40%;
 		padding: 0;
+	}
+
+	.highlights-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+	.wrapper {
+		width: 1100px;
+	}
+
+	.highlights-grid {
+		grid-template-columns: repeat(2, 1fr);
 	}
 }

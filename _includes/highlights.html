@@ -1,0 +1,26 @@
+<section id="highlights" class="highlights-section">
+  <h2>Career Highlights</h2>
+
+  <div class="highlights-grid">
+    {% for section in site.data.highlights.sections %}
+    <div class="highlight-card">
+      <div class="highlight-icon">{{ section.icon }}</div>
+      <h3>{{ section.title }}</h3>
+      <ul class="highlight-list">
+        {% for item in section.items %}
+        <li>{{ item | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="tech-stack">
+    <h3>Technical Expertise</h3>
+    <div class="tech-tags">
+      {% for tech in site.data.tech_stack.technologies %}
+      <span class="tech-tag {{ tech.category }}">{{ tech.name }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>

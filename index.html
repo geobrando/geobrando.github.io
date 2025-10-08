@@ -2,7 +2,7 @@
 layout: base
 ---
 <div class="wrapper">
-    <header>
+    <header class="site-header">
         {% if site.compass.logo %}
         <div class="logo-container">
           <a class="logo" href="{{ page.baseurl }}" style="background-image: url('{{ site.baseurl }}{{ site.compass.logo }}')"></a>
@@ -14,12 +14,20 @@ layout: base
         {% if site.compass.tagline %}
         <div class="tagline-container"><p>{{ site.compass.tagline }}</p></div>
         {% endif %}
+        {% include navigation.html %}
     </header>
     <main>
+      {% include about.html %}
+
+      {% include highlights.html %}
+
       {% if site.compass.include_content %}
-      <div class="content">
-        {% include content.html %}
-      </div>
+      <section id="contact" class="contact-section">
+        <h2>Connect</h2>
+        <div class="content">
+          {% include content.html %}
+        </div>
+      </section>
       {% endif %}
     </main>
 </div>

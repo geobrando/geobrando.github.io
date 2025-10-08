@@ -1,0 +1,36 @@
+sections:
+  - icon: "🤖"
+    title: "Generative AI & LLMs"
+    items:
+      - "Leading enterprise LLM initiatives with RAG systems for compliance use cases"
+      - "Experimenting with containerized AI workloads on GPU infrastructure"
+      - "Building NLP-powered document analysis and classification systems"
+
+  - icon: "⚙️"
+    title: "DevOps & Automation"
+    items:
+      - "Creating GitHub Actions workflows for CI/CD pipelines"
+      - "Designing reusable project templates and scaffolding tools"
+      - "Streamlining development environments with infrastructure-as-code"
+      - "Leveraging AI-assisted coding workflows (vibe coding and spec-driven development)"
+
+  - icon: "🌐"
+    title: "Open Source & Civic Tech"
+    items:
+      - "Contributing to open-source software governance in federal government"
+      - "Building developer documentation and collaboration platforms"
+      - "Co-founder of MaptimeDC and active OpenStreetMap contributor"
+
+  - icon: "🏗️"
+    title: "Data Engineering"
+    items:
+      - "Architecting data pipelines and analytics platforms"
+      - "Working with Python, R, SQL, and modern cloud infrastructure"
+      - "Modernizing geospatial data workflows with parallel processing"
+
+  - icon: "📊"
+    title: "Analytics & Visualization"
+    items:
+      - "Building interactive dashboards and web applications"
+      - "Creating automated reporting systems with Quarto and R Markdown"
+      - "Working with Tableau, PowerBI, and R/Shiny"
